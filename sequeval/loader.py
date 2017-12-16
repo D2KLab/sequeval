@@ -39,7 +39,7 @@ class MovieLensLoader(Loader):
         # Read the input file
         df_input = pandas.read_csv(file, names=['userId', 'itemId', 'rating', 'timestamp'], skiprows=self.skip)
 
-        # Select the ratings higher than limit
+        # Select the ratings higher than the limit
         df_filtered = df_input.loc[df_input['rating'] > self.limit]
 
         # Sort the by user and timestamp
