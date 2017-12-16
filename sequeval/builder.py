@@ -8,10 +8,12 @@ class Builder:
 
     def build(self, ratings):
         """
-        Build a list of sequences. Each sequence is a list of ratings.
+        Build a list of sequences and a list of unique items.
+        Each sequence is a list of ratings.
+        Each rating is a item, user, timestamp tuple.
 
         :param ratings: A list of ratings, ordered by user and timestamp.
-        :return: A list of sequences.
+        :return: A list of sequences, a list of unique items.
         """
         sequences = []
 
@@ -49,4 +51,13 @@ class Builder:
         if s is not None:
             sequences.append(s)
 
-        return sequences
+        # Create the list of items
+        items = []
+
+        for sequence in sequences:
+            for rating in sequence:
+                items.append(rating[0])
+
+        items = sorted(list(set(items)))
+
+        return sequences, items
