@@ -25,7 +25,11 @@ class RecommenderTestSuite(unittest.TestCase):
         self.assertEqual(1.0, evaluator.precision(recommender))
 
     def test_ndpm(self):
-        pass
+        recommender = baseline.MostPopularRecommender(training_set, items)
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 3)
+        self.assertAlmostEqual(5 / 12, evaluator.ndpm(recommender))
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 2)
+        self.assertEqual(3 / 4, evaluator.ndpm(recommender))
 
     def test_diversity(self):
         pass
