@@ -1,21 +1,12 @@
 import numpy as np
 
-from ..recommender import Recommender
+from .unigram import UnigramRecommender
 
 
-class MostPopularRecommender(Recommender):
+class MostPopularRecommender(UnigramRecommender):
 
     def __init__(self, training_set, items):
         super().__init__(training_set, items)
-
-        self.weights = np.full(len(self.items), 0.0, dtype=float)
-
-        for sequence in training_set:
-            for rating in sequence:
-                item_index = self.items.index(rating[0])
-                self.weights[item_index] += 1
-
-        self.weights /= self.weights.sum()
 
         # Sort indexes in descending order
         self.sorted_weights = np.argsort(-self.weights)
