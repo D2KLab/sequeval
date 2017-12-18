@@ -128,8 +128,19 @@ class Evaluator:
 
         return ndpm.mean()
 
-    def diversity(self, recommender):
-        pass
+    def diversity(self, recommender, metric):
+        diversity = np.full(len(self.test_set), 0.0, dtype=float)
+
+        for sequence_index, sequence in enumerate(self.test_set):
+            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_items = self._get_item_list(recommended_sequence)
+
+            for items in itertools.combinations(recommended_items, 2):
+                diversity[sequence_index] += (1 - metric.similarity(items[0], items[1]))
+
+            diversity[sequence_index] /= self.k * (self.k - 1) * 0.5
+
+        return diversity.mean()
 
     def novelty(self, recommender):
         pass

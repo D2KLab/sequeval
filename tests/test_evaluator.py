@@ -32,7 +32,18 @@ class RecommenderTestSuite(unittest.TestCase):
         self.assertEqual(3 / 4, evaluator.ndpm(recommender))
 
     def test_diversity(self):
-        pass
+        recommender = baseline.MostPopularRecommender(training_set, items)
+        similarity = sequeval.CosineSimilarity(training_set, items)
+
+        # Compute the possible diversities
+        d1 = 1 - similarity.similarity(2, 1)
+        d2 = 1 - similarity.similarity(2, 3)
+        d3 = 1 - similarity.similarity(1, 3)
+
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 3)
+        self.assertAlmostEqual((d1 + d2 + d3) / 3, evaluator.diversity(recommender, similarity))
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 2)
+        self.assertAlmostEqual(d1, evaluator.diversity(recommender, similarity))
 
     def test_novelty(self):
         pass
