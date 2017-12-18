@@ -1,6 +1,8 @@
 from abc import ABC
 from abc import abstractmethod
 
+import numpy as np
+
 
 class Recommender(ABC):
 
@@ -16,7 +18,22 @@ class Recommender(ABC):
         :param k: The length of the sequence.
         :return: A recommended sequence.
         """
-        pass
+        current_rating = seed_rating
+        sequence = []
+
+        for i in range(0, k):
+            # The probabilities for the next item of the sequence
+            prediction = self.predict(current_rating)
+            # noinspection PyUnresolvedReferences
+            item = np.random.choice(self.items, p=prediction)
+            next_rating = (item, current_rating[1], current_rating[2] + 1)
+            sequence.append(next_rating)
+            current_rating = next_rating
+
+        # After each sequence the model needs to be reset
+        self.reset()
+
+        return sequence
 
     def predict_item(self, rating, item):
         """
@@ -27,7 +44,8 @@ class Recommender(ABC):
         :param item: The next item of the sequence.
         :return: A probability.
         """
-        pass
+        prediction = self.predict(rating)
+        return prediction[self.items.index(item)]
 
     @abstractmethod
     def predict(self, rating):
