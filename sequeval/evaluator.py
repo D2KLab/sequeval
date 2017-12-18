@@ -1,4 +1,5 @@
 import itertools
+import math
 
 import numpy as np
 
@@ -10,7 +11,9 @@ class Evaluator:
         self.test_set = test_set
         self.items = items
         self.k = k
+
         self.users = self._get_user_set(training_set + test_set)
+        self.distribution = self._get_distribution(training_set, items)
 
     @staticmethod
     def _get_item_list(sequence):
@@ -42,6 +45,27 @@ class Evaluator:
                 users.append(rating)
 
         return sorted(list(set(users)))
+
+    @staticmethod
+    def _get_distribution(sequences, items):
+        """
+        Get an array representing the number of times the items
+        appeared in a list of sequences.
+
+        :param sequences: The list of sequences.
+        :param items: The list of items.
+        :return: An array representing the distribution.
+        """
+        distribution = np.full(len(items), 0.0, dtype=float)
+
+        for sequence in sequences:
+            for rating in sequence:
+                item_index = items.index(rating[0])
+                distribution[item_index] += 1
+
+        distribution /= distribution.sum()
+
+        return distribution
 
     def coverage(self, recommender):
         total_items = 0
@@ -143,7 +167,25 @@ class Evaluator:
         return diversity.mean()
 
     def novelty(self, recommender):
-        pass
+        novelty = np.full(len(self.test_set), 0.0, dtype=float)
+
+        for sequence_index, sequence in enumerate(self.test_set):
+            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_items = self._get_item_list(recommended_sequence)
+            metric = 0
+
+            for item in recommended_items:
+                item_index = self.items.index(item)
+                item_distribution = self.distribution[item_index]
+
+                # log(0) = 0 by definition
+                if item_distribution != 0:
+                    metric += math.log2(item_distribution)
+
+            metric *= -1 * (1 / self.k)
+            novelty[sequence_index] = metric
+
+        return novelty.mean()
 
     def serendipity(self, recommender):
         pass

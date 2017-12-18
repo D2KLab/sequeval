@@ -1,3 +1,4 @@
+import math
 import unittest
 
 import sequeval
@@ -46,7 +47,12 @@ class RecommenderTestSuite(unittest.TestCase):
         self.assertAlmostEqual(d1, evaluator.diversity(recommender, similarity))
 
     def test_novelty(self):
-        pass
+        recommender = baseline.MostPopularRecommender(training_set, items)
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 3)
+        self.assertAlmostEqual((math.log2(0.375) + math.log2(0.5) + math.log2(0.125)) / -3,
+                               evaluator.novelty(recommender))
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 2)
+        self.assertAlmostEqual((math.log2(0.375) + math.log2(0.5)) / -2, evaluator.novelty(recommender))
 
     def test_serendipity(self):
         pass
