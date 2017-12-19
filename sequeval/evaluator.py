@@ -215,7 +215,24 @@ class Evaluator:
         return serendipity.mean()
 
     def confidence(self, recommender):
-        pass
+        confidence = np.full(len(self.test_set), 0.0, dtype=float)
+
+        for sequence_index, sequence in enumerate(self.test_set):
+            recommended_sequence = recommender.generate(sequence[0], self.k)
+
+            previous_rating = sequence[0]
+
+            for rating in recommended_sequence:
+                probability = recommender.predict_item(previous_rating, rating[0])
+                confidence[sequence_index] += probability
+                previous_rating = rating
+
+            recommender.reset()
+
+            # Mean for each sequence
+            confidence[sequence_index] /= self.k
+
+        return confidence.mean()
 
     def perplexity(self, recommender):
         pass
