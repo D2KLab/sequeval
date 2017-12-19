@@ -235,4 +235,30 @@ class Evaluator:
         return confidence.mean()
 
     def perplexity(self, recommender):
-        pass
+        cross_entropy = np.full(len(self.test_set), 0.0, dtype=float)
+        count_ratings = 0
+
+        for sequence_index, sequence in enumerate(self.test_set):
+
+            for rating_index, rating in enumerate(sequence):
+                try:
+                    next_item = sequence[rating_index + 1][0]
+                    probability = recommender.predict_item(rating, next_item)
+
+                    if probability > 0:
+                        # noinspection PyUnresolvedReferences
+                        cross_entropy[sequence_index] -= np.log2(probability)
+                    else:
+                        cross_entropy[sequence_index] = math.inf
+
+                    count_ratings += 1
+
+                except IndexError:
+                    # The sequence has ended
+                    pass
+
+            recommender.reset()
+
+        perplexity = 2 ** (cross_entropy.sum() / count_ratings)
+
+        return perplexity

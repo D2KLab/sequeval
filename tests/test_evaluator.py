@@ -64,14 +64,18 @@ class RecommenderTestSuite(unittest.TestCase):
         self.assertAlmostEqual(3 / 6, evaluator.serendipity(recommender, primitive_k=1))
 
     def test_confidence(self):
-        recommender = baseline.MostPopularRecommender(training_set, items)
         evaluator = sequeval.Evaluator(training_set, test_set, items, 3)
+        recommender = baseline.MostPopularRecommender(training_set, items)
         self.assertEqual(1.0, evaluator.confidence(recommender))
         recommender = baseline.RandomRecommender(training_set, items)
         self.assertAlmostEqual(1 / 3, evaluator.confidence(recommender))
 
     def test_perplexity(self):
-        pass
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 3)
+        recommender = baseline.MostPopularRecommender(training_set, items)
+        self.assertAlmostEqual(math.inf, evaluator.perplexity(recommender))
+        recommender = baseline.RandomRecommender(training_set, items)
+        self.assertAlmostEqual(3.0, evaluator.perplexity(recommender))
 
 
 if __name__ == '__main__':
