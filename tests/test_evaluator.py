@@ -55,7 +55,13 @@ class RecommenderTestSuite(unittest.TestCase):
         self.assertAlmostEqual((math.log2(0.375) + math.log2(0.5)) / -2, evaluator.novelty(recommender))
 
     def test_serendipity(self):
-        pass
+        recommender = baseline.MostPopularRecommender(training_set, items)
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 3)
+        self.assertEqual(0.0, evaluator.serendipity(recommender))
+        self.assertAlmostEqual(1 / 6, evaluator.serendipity(recommender, primitive_k=2))
+        evaluator = sequeval.Evaluator(training_set, test_set, items, 2)
+        self.assertEqual(0.0, evaluator.serendipity(recommender))
+        self.assertAlmostEqual(3 / 6, evaluator.serendipity(recommender, primitive_k=1))
 
     def test_confidence(self):
         pass

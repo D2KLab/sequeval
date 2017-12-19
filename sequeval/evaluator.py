@@ -3,6 +3,8 @@ import math
 
 import numpy as np
 
+import sequeval.baseline as baseline
+
 
 class Evaluator:
 
@@ -95,16 +97,11 @@ class Evaluator:
             hit = 0
 
             recommended_sequence = recommender.generate(sequence[0], self.k)
-
-            # Create a list of reference items
-            reference_items = []
-
-            for rating in sequence[1:]:
-                reference_items.append(rating[0])
+            reference_items = self._get_item_list(sequence[1:])
 
             # For each rating in the recommended sequence
             for rating in recommended_sequence:
-                # Check if it is also in the reference path
+                # Check if the item is also in the reference path
                 if rating[0] in reference_items:
                     # Only the first time
                     reference_items.remove(rating[0])
@@ -187,8 +184,35 @@ class Evaluator:
 
         return novelty.mean()
 
-    def serendipity(self, recommender):
-        pass
+    def serendipity(self, recommender, primitive_k=None):
+        primitive_recommender = baseline.MostPopularRecommender(self.training_set, self.items)
+        primitive_sequence = primitive_recommender.generate((0, 0, 0), self.k if primitive_k is None else primitive_k)
+        primitive_items = self._get_item_list(primitive_sequence)
+
+        serendipity = np.full(len(self.test_set), 0.0, dtype=float)
+
+        for sequence_index, sequence in enumerate(self.test_set):
+            local_k = min(self.k, len(sequence) - 1)
+            hit = 0
+
+            recommended_sequence = recommender.generate(sequence[0], self.k)
+            reference_items = self._get_item_list(sequence[1:])
+
+            # For each rating in the recommended sequence
+            for rating in recommended_sequence:
+                # Check if the item is also in the primitive sequence
+                if rating[0] in primitive_items:
+                    continue
+
+                # Check if the item is also in the reference path
+                if rating[0] in reference_items:
+                    # Only the first time
+                    reference_items.remove(rating[0])
+                    hit += 1
+
+            serendipity[sequence_index] = hit / local_k
+
+        return serendipity.mean()
 
     def confidence(self, recommender):
         pass
