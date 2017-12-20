@@ -66,6 +66,6 @@ class MovieLensLoader(Loader):
         ratings = []
         for row in df_sorted.itertuples():
             # itemId, userId, timestamp
-            ratings.append((row[2], row[1], row[4]))
+            ratings.append((row[2], row[1], int(row[4])))
 
         return ratings

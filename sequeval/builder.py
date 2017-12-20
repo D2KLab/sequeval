@@ -27,8 +27,8 @@ class Builder:
                 last_row = row
 
             # We have found a new user
-            elif last_row[1] is not row[1]:
-                last_row = None
+            elif last_row[1] != row[1]:
+                last_row = row
                 if s is not None:
                     sequences.append(s)
                     s = None
