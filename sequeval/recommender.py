@@ -25,8 +25,8 @@ class Recommender(ABC):
             # The probabilities for the next item of the sequence
             prediction = self.predict(current_rating)
             # noinspection PyUnresolvedReferences
-            item = np.random.choice(self.items, p=prediction)
-            next_rating = (item, current_rating[1], current_rating[2] + 1)
+            item_index = np.random.multinomial(1, prediction).argmax()
+            next_rating = (self.items[item_index], current_rating[1], current_rating[2] + 1)
             sequence.append(next_rating)
             current_rating = next_rating
 
