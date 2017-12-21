@@ -38,6 +38,7 @@ class CosineSimilarity(Similarity):
     def similarity(self, item_i, item_j):
         """
         Compute the cosine similarity between two items.
+        If an item does not appear in any sequence the similarity is zero.
 
         :param item_i: The first item.
         :param item_j: The second item.
@@ -45,4 +46,9 @@ class CosineSimilarity(Similarity):
         """
         index_i = self.items.index(item_i)
         index_j = self.items.index(item_j)
-        return 1 - distance.cosine(self.matrix[index_i], self.matrix[index_j])
+        array_i = self.matrix[index_i]
+        array_j = self.matrix[index_j]
+        if array_i.sum() == 0 or array_j.sum() == 0:
+            return 0
+        else:
+            return 1 - distance.cosine(array_i, array_j)
