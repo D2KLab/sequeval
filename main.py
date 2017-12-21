@@ -14,9 +14,9 @@ def evaluation(compute, recommender, similarity):
     confidence = compute.confidence(recommender)
     perplexity = compute.perplexity(recommender)
 
-    print('\n' + str(coverage) + '\t' + str(precision) + '\t' + str(ndpm) +
-          '\t' + str(diversity) + '\t' + str(novelty) + '\t' + str(serendipity) +
-          '\t' + str(confidence) + '\t' + str(perplexity))
+    print(recommender.name + '\t' + str(coverage) + '\t' + str(precision) +
+          '\t' + str(ndpm) + '\t' + str(diversity) + '\t' + str(novelty) +
+          '\t' + str(serendipity) + '\t' + str(confidence) + '\t' + str(perplexity))
 
 
 if __name__ == '__main__':
@@ -36,8 +36,8 @@ if __name__ == '__main__':
     builder = sequeval.Builder(args.delta_tau)
     sequences, items = builder.build(ratings)
 
+    print("# Profiler")
     profiler = sequeval.Profiler(sequences)
-    print("\nProfiler")
     print("Users:", profiler.users())
     print("Items:", profiler.items())
     print("Ratings:", profiler.ratings())
@@ -45,27 +45,24 @@ if __name__ == '__main__':
     print("Sparsity:", profiler.sparsity())
     print("Length:", profiler.sequence_length())
 
+    print("\n# Splitter")
     splitter = sequeval.TimestampSplitter(args.test_ratio)
     training_set, test_set = splitter.split(sequences)
-    print("\nSplitter")
     print("Training set:", len(training_set))
     print("Test set:", len(test_set))
 
+    print("\n# Evaluator")
     evaluator = sequeval.Evaluator(training_set, test_set, items, args.k)
     cosine = sequeval.CosineSimilarity(training_set, items)
 
-    print("\nMost popular")
     most_popular = baseline.MostPopularRecommender(training_set, items)
     evaluation(evaluator, most_popular, cosine)
 
-    print("\nRandom")
     random = baseline.RandomRecommender(training_set, items)
     evaluation(evaluator, random, cosine)
 
-    print("\nUnigram")
     unigram = baseline.UnigramRecommender(training_set, items)
     evaluation(evaluator, unigram, cosine)
 
-    print("\nBigram")
     bigram = baseline.BigramRecommender(training_set, items)
     evaluation(evaluator, bigram, cosine)

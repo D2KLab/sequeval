@@ -4,6 +4,7 @@ from ..recommender import Recommender
 
 
 class BigramRecommender(Recommender):
+    name = 'Bigram'
 
     def __init__(self, training_set, items):
         super().__init__(training_set, items)

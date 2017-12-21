@@ -4,6 +4,7 @@ from ..recommender import Recommender
 
 
 class RandomRecommender(Recommender):
+    name = 'Random'
 
     def predict(self, rating):
         return np.full(len(self.items), 1 / len(self.items), dtype=float)
