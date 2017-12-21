@@ -27,6 +27,7 @@ if __name__ == '__main__':
     parser.add_argument('file', type=str, help='file containing the ratings')
     parser.add_argument('--ratings', type=int, default=5, help='minimum number of ratings per user and per item')
     parser.add_argument('--delta', type=str, default='8 hours', help='time interval to create the sequences')
+    parser.add_argument('--random', action='store_true', default=False, help='use random instead of timestamp splitter')
     parser.add_argument('--ratio', type=float, default=0.2, help='percentage of sequences in the test set')
     parser.add_argument('--k', type=int, default=5, help='length of the recommended sequences')
 
@@ -47,8 +48,12 @@ if __name__ == '__main__':
     print("Sparsity:", profiler.sparsity())
     print("Length:", profiler.sequence_length())
 
-    print("\n# Splitter")
-    splitter = sequeval.TimestampSplitter(args.ratio)
+    if args.random is True:
+        print("\n# Random splitter")
+        splitter = sequeval.RandomSplitter(args.ratio)
+    else:
+        print("\n# Timestamp splitter")
+        splitter = sequeval.TimestampSplitter(args.ratio)
     training_set, test_set = splitter.split(sequences)
     print("Training set:", len(training_set))
     print("Test set:", len(test_set))
