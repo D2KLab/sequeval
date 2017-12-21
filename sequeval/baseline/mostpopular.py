@@ -4,7 +4,7 @@ from .unigram import UnigramRecommender
 
 
 class MostPopularRecommender(UnigramRecommender):
-    name = 'Most popular'
+    name = 'Popular'
 
     def __init__(self, training_set, items):
         super().__init__(training_set, items)

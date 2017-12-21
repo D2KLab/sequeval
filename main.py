@@ -7,18 +7,15 @@ import sequeval.baseline as baseline
 
 
 def evaluation(compute, recommender, similarity):
-    coverage = compute.coverage(recommender)
-    precision = compute.precision(recommender)
-    ndpm = compute.ndpm(recommender)
-    diversity = compute.diversity(recommender, similarity)
-    novelty = compute.novelty(recommender)
-    serendipity = compute.serendipity(recommender)
-    confidence = compute.confidence(recommender)
-    perplexity = compute.perplexity(recommender)
-
-    print(recommender.name + '\t' + str(coverage) + '\t' + str(precision) +
-          '\t' + str(ndpm) + '\t' + str(diversity) + '\t' + str(novelty) +
-          '\t' + str(serendipity) + '\t' + str(confidence) + '\t' + str(perplexity))
+    print("%10s\t" % recommender.name, end='')
+    print("%10f\t" % compute.coverage(recommender), end='')
+    print("%10f\t" % compute.precision(recommender), end='')
+    print("%10f\t" % compute.ndpm(recommender), end='')
+    print("%10f\t" % compute.diversity(recommender, similarity), end='')
+    print("%10f\t" % compute.novelty(recommender), end='')
+    print("%10f\t" % compute.serendipity(recommender), end='')
+    print("%10f\t" % compute.confidence(recommender), end='')
+    print("%10f" % compute.perplexity(recommender))
 
 
 if __name__ == '__main__':
@@ -59,9 +56,9 @@ if __name__ == '__main__':
     print("Test set:", len(test_set))
 
     print("\n# Evaluator")
-    print("Recommender" + '\t' + "Coverage" + '\t' + "Precision" +
-          '\t' + "nDPM" + '\t' + "Diversity" + '\t' + "Novelty" +
-          '\t' + "Serendipity" + '\t' + "Confidence" + '\t' + "Perplexity")
+    print("%10s\t%10s\t%10s\t%10s\t%10s\t%10s\t%10s\t%10s\t%10s" %
+          ("Algorithm", "Coverage", "Precision", "nDPM", "Diversity",
+           "Novelty", "Serendipity", "Confidence", "Perplexity"))
     evaluator = sequeval.Evaluator(training_set, test_set, items, args.k)
     cosine = sequeval.CosineSimilarity(training_set, items)
 
