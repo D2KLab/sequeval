@@ -22,7 +22,7 @@ class MovieLensLoader(Loader):
 
     def __init__(self, min_ratings=0, threshold=None, skip=0):
         """
-        :param min_ratings: The minimum number of ratings per each user and per each item.
+        :param min_ratings: The minimum number of ratings per each user.
         :param threshold: The threshold between positive and negative ratings.
         :param skip: The number of rows to skip when reading the file.
         """
@@ -54,15 +54,8 @@ class MovieLensLoader(Loader):
             # Select the users with more ratings than min_ratings
             users_min_ratings = df_users_counter.loc[df_users_counter['counter'] >= self.min_ratings]['userId']
 
-            # Count the ratings per each item
-            df_items_counter = df_filtered.groupby(['itemId']).size().reset_index(name='counter')
-
-            # Select the items with more ratings than min_ratings
-            items_min_ratings = df_items_counter.loc[df_items_counter['counter'] >= self.min_ratings]['itemId']
-
-            # Keep only the ratings associated with frequent items and users
-            df_min_ratings = df_filtered.loc[df_filtered['userId'].isin(users_min_ratings) &
-                                             df_filtered['itemId'].isin(items_min_ratings)]
+            # Keep only the ratings associated with frequent users
+            df_min_ratings = df_filtered.loc[df_filtered['userId'].isin(users_min_ratings)]
         else:
             df_min_ratings = df_filtered
 
