@@ -8,7 +8,7 @@ class MostPopularTestSuite(unittest.TestCase):
 
     def test_predict(self):
         unigram = baseline.UnigramRecommender(sequences, items)
-        expected = [0.375, 0.5, 0.125]
+        expected = [4 / 11, 5 / 11, 2 / 11]
         self.assertEqual(expected, unigram.predict(None).tolist())
         self.assertEqual(expected, unigram.predict(None).tolist())
 
