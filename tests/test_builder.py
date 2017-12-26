@@ -16,7 +16,7 @@ class BuilderTestSuite(unittest.TestCase):
         builder = sequeval.Builder(10)
         actual_sequences, actual_items = builder.build(ratings)
         self.assertEqual(sequences, actual_sequences)
-        self.assertEqual(items, actual_items)
+        self.assertEqual(items, actual_items._list)
 
 
 if __name__ == '__main__':
