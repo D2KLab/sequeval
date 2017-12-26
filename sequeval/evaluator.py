@@ -74,7 +74,7 @@ class Evaluator:
 
         # For each sequence in the test set
         for sequence in self.test_set:
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
 
             for rating in recommended_sequence:
                 recommended_items.append(rating[0])
@@ -91,7 +91,7 @@ class Evaluator:
             local_k = min(self.k, len(sequence) - 1)
             hit = 0
 
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
             reference_items = self._get_item_list(sequence[1:])
 
             # For each rating in the recommended sequence
@@ -113,7 +113,7 @@ class Evaluator:
         ndpm = np.full(len(self.test_set), 0.0, dtype=float)
 
         for sequence_index, sequence in enumerate(self.test_set):
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
             recommended_items = self._get_item_list(recommended_sequence)
             reference_items = self._get_item_list(sequence[1:])
 
@@ -148,7 +148,7 @@ class Evaluator:
         diversity = np.full(len(self.test_set), 0.0, dtype=float)
 
         for sequence_index, sequence in enumerate(self.test_set):
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
             recommended_items = self._get_item_list(recommended_sequence)
 
             for items in itertools.combinations(recommended_items, 2):
@@ -162,7 +162,7 @@ class Evaluator:
         novelty = np.full(len(self.test_set), 0.0, dtype=float)
 
         for sequence_index, sequence in enumerate(self.test_set):
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
             recommended_items = self._get_item_list(recommended_sequence)
             metric = 0
 
@@ -181,7 +181,7 @@ class Evaluator:
 
     def serendipity(self, recommender, primitive_k=None):
         primitive_recommender = baseline.MostPopularRecommender(self.training_set, self.items)
-        primitive_sequence = primitive_recommender.generate((0, 0, 0), self.k if primitive_k is None else primitive_k)
+        primitive_sequence = primitive_recommender.recommend((0, 0, 0), self.k if primitive_k is None else primitive_k)
         primitive_items = self._get_item_list(primitive_sequence)
 
         serendipity = np.full(len(self.test_set), 0.0, dtype=float)
@@ -190,7 +190,7 @@ class Evaluator:
             local_k = min(self.k, len(sequence) - 1)
             hit = 0
 
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
             reference_items = self._get_item_list(sequence[1:])
 
             # For each rating in the recommended sequence
@@ -213,7 +213,7 @@ class Evaluator:
         confidence = np.full(len(self.test_set), 0.0, dtype=float)
 
         for sequence_index, sequence in enumerate(self.test_set):
-            recommended_sequence = recommender.generate(sequence[0], self.k)
+            recommended_sequence = recommender.recommend(sequence[0], self.k)
 
             previous_rating = sequence[0]
 

@@ -6,12 +6,12 @@ from .test_builder import sequences, items
 
 class RecommenderTestSuite(unittest.TestCase):
 
-    def test_generate(self):
+    def test_recommend(self):
         recommender = baseline.MostPopularRecommender(sequences, items)
         expected = [(2, 1, 4), (1, 1, 5), (3, 1, 6)]
-        self.assertEqual(expected, recommender.generate((1, 1, 3), 3))
+        self.assertEqual(expected, recommender.recommend((1, 1, 3), 3))
         # Check that there is no memory
-        self.assertEqual(expected, recommender.generate((1, 1, 3), 3))
+        self.assertEqual(expected, recommender.recommend((1, 1, 3), 3))
 
     def test_predict_item(self):
         recommender = baseline.MostPopularRecommender(sequences, items)

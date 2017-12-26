@@ -9,8 +9,10 @@ class Recommender(ABC):
     def __init__(self, training_set, items):
         self.training_set = training_set
         self.items = items
+        # Dictionary to store the recommended sequences
+        self.cache = {}
 
-    def generate(self, seed_rating, k):
+    def recommend(self, seed_rating, k):
         """
         Generate a recommended sequence of length k from a seed rating.
 
@@ -18,6 +20,12 @@ class Recommender(ABC):
         :param k: The length of the sequence.
         :return: A recommended sequence.
         """
+        try:
+            # If this sequence has already been generated
+            return list(self.cache[(seed_rating, k)])
+        except KeyError:
+            pass
+
         current_rating = seed_rating
         sequence = []
 
@@ -32,6 +40,9 @@ class Recommender(ABC):
 
         # After each sequence the model needs to be reset
         self.reset()
+
+        # Save this sequence in the cache
+        self.cache[(seed_rating, k)] = sequence
 
         return sequence
 
@@ -55,6 +66,7 @@ class Recommender(ABC):
 
         :param rating: The current rating of the recommended sequence.
         :return: An array of probabilities.
+        :rtype: Iterable.
         """
         pass
 
