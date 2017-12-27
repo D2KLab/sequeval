@@ -22,7 +22,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='An evaluation framework for sequence-based recommender systems.')
 
     parser.add_argument('file', type=str, help='file containing the ratings')
-    parser.add_argument('--ratings', type=int, default=20, help='minimum number of ratings per user')
+    parser.add_argument('--user_ratings', type=int, default=0, help='minimum number of ratings per user')
+    parser.add_argument('--item_ratings', type=int, default=0, help='minimum number of ratings per item')
     parser.add_argument('--delta', type=str, default='8 hours', help='time interval to create the sequences')
     parser.add_argument('--random', action='store_true', default=False, help='use random instead of timestamp splitter')
     parser.add_argument('--ratio', type=float, default=0.2, help='percentage of sequences in the test set')
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    loader = sequeval.MovieLensLoader(min_ratings=args.ratings)
+    loader = sequeval.MovieLensLoader(user_ratings=args.user_ratings, item_ratings=args.item_ratings)
     ratings = loader.load(args.file)
 
     builder = sequeval.Builder(pytimeparse.parse(args.delta))

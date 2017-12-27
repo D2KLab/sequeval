@@ -26,10 +26,15 @@ class LoaderTestSuite(unittest.TestCase):
         loader = sequeval.MovieLensLoader()
         self.assertEqual(ratings, loader.load(io.StringIO(fake_input)))
 
-    def test_movielens_min_ratings(self):
+    def test_movielens_user_ratings(self):
         fake_input = "1,1,5,0\n1,2,5,5\n1,1,5,10\n1,3,5,30\n1,2,5,35,\n2,1,5,5\n2,1,5,30\n2,2,5,35\n2,2,5,40"
-        loader = sequeval.MovieLensLoader(min_ratings=5)
+        loader = sequeval.MovieLensLoader(user_ratings=5)
         self.assertEqual(ratings[:5], loader.load(io.StringIO(fake_input)))
+
+    def test_movielens_item_ratings(self):
+        fake_input = "1,1,5,0\n1,2,5,5\n1,1,5,10\n1,3,5,30\n1,2,5,35,\n2,1,5,5\n2,1,5,30\n2,2,5,35\n2,2,5,40"
+        loader = sequeval.MovieLensLoader(item_ratings=2)
+        self.assertEqual(ratings[:3] + ratings[4:], loader.load(io.StringIO(fake_input)))
 
     def test_movielens_threshold(self):
         fake_input = "1,1,5,0\n1,2,5,5\n1,1,5,10\n1,3,5,30\n1,2,5,35,\n2,1,5,5\n2,1,5,30\n2,2,5,35\n2,2,2,40"
