@@ -1,5 +1,7 @@
 import argparse
+import random
 
+import numpy as np
 import pytimeparse
 
 import sequeval
@@ -22,6 +24,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='An evaluation framework for sequence-based recommender systems.')
 
     parser.add_argument('file', type=str, help='file containing the ratings')
+    parser.add_argument('--seed', type=int, default=None, help='seed for generating pseudo-random numbers')
     parser.add_argument('--user_ratings', type=int, default=0, help='minimum number of ratings per user')
     parser.add_argument('--item_ratings', type=int, default=0, help='minimum number of ratings per item')
     parser.add_argument('--delta', type=str, default='8 hours', help='time interval to create the sequences')
@@ -33,11 +36,17 @@ if __name__ == '__main__':
 
     print("\n# Parameters")
     print("File:", args.file)
+    print("Seed:", args.seed)
     print("User ratings:", args.user_ratings)
     print("Item ratings:", args.item_ratings)
     print("Delta:", args.delta)
     print("Ratio:", args.ratio)
     print("k:", args.k)
+
+    # Set the random seed
+    if args.seed is not None:
+        random.seed(args.seed)
+        np.random.seed(args.seed)
 
     loader = sequeval.MovieLensLoader(user_ratings=args.user_ratings, item_ratings=args.item_ratings)
     ratings = loader.load(args.file)
