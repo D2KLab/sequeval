@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    print("# Parameters")
+    print("\n# Parameters")
     print("File:", args.file)
     print("User ratings:", args.user_ratings)
     print("Item ratings:", args.item_ratings)
