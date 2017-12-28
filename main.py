@@ -15,7 +15,7 @@ def evaluation(compute, recommender, similarity):
     print("%10f\t" % compute.novelty(recommender), end='')
     print("%10f\t" % compute.serendipity(recommender), end='')
     print("%10f\t" % compute.confidence(recommender), end='')
-    print("%10f" % compute.perplexity(recommender))
+    print("%10.2f" % compute.perplexity(recommender))
 
 
 if __name__ == '__main__':
@@ -31,13 +31,21 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    print("# Parameters")
+    print("File:", args.file)
+    print("User ratings:", args.user_ratings)
+    print("Item ratings:", args.item_ratings)
+    print("Delta:", args.delta)
+    print("Ratio:", args.ratio)
+    print("k:", args.k)
+
     loader = sequeval.MovieLensLoader(user_ratings=args.user_ratings, item_ratings=args.item_ratings)
     ratings = loader.load(args.file)
 
     builder = sequeval.Builder(pytimeparse.parse(args.delta))
     sequences, items = builder.build(ratings)
 
-    print("# Profiler")
+    print("\n# Profiler")
     profiler = sequeval.Profiler(sequences)
     print("Users:", profiler.users())
     print("Items:", profiler.items())
