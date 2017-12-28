@@ -1,4 +1,7 @@
 .cache
 .idea
+build
 datasets
+dist
 venv
+*.egg-info
