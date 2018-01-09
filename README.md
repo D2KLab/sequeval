@@ -6,14 +6,12 @@ An evaluation framework for sequence-based recommender systems.
 * Clone the repository and change the working directory:
 
   ```bash
-  $ git clone git@github.com:D2KLab/sequeval.git
-  $ cd sequeval
+  $ git clone git@github.com:D2KLab/sequeval.git && cd sequeval
   ```
 
 * Create a virtual environment:
 
   ```bash
-  $ pip install virtualenv
   $ virtualenv venv
   ```
 
