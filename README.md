@@ -1,42 +1,24 @@
 # Sequeval
-An evaluation framework for sequence-based recommender systems.
+Sequeval is an offline evaluation framework for sequence-based recommender systems developed in Python.
+
+## Dependencies
+
+Sequeval requires [numpy](http://www.numpy.org/), [scipy](http://www.scipy.org/), [pandas](http://pandas.pydata.org/), and [matplotlib](http://matplotlib.org/).
 
 ## Installation
 
-* Clone the repository and change the working directory:
+If you interesting in using sequeval in your own project, you can install it with `pip`:
 
-  ```bash
-  $ git clone git@github.com:D2KLab/sequeval.git && cd sequeval
-  ```
+```bash
+$ pip install git+https://github.com/D2KLab/sequeval.git
+```
 
-* Create a virtual environment:
+If you want to run the sample script `main.py` you need to first clone the repository and then install the requirements:
 
-  ```bash
-  $ virtualenv venv
-  ```
+```bash
+$ pip install -r requirements.txt
+```
 
-* Activate it:
+## Testing
 
-  ```bash
-  $ source venv/bin/activate
-  ```
-
-* Install the requirements:
-
-  ```bash
-  $ pip install -r requirements.txt
-  ```
-
-* Optionally run the tests:
-
-  ```bash
-  $ pytest tests
-  ```
-
-* Create a source distribution:
-
-  ```bash
-  $ python setup.py sdist
-  ```
-
-An installation package will be created inside the `dist` directory. It can be installed in another virtual environment by the means of `pip install sequeval-*.tar.gz`.
+You can test sequeval by running `pytest tests`. You can also compute the coverage of the tests with `pytest --cov tests`. These commands require, respectively, [pytest](https://pytest.org/) and [pytest-cov](https://github.com/pytest-dev/pytest-cov).
