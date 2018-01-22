@@ -21,4 +21,4 @@ $ pip install -r requirements.txt
 
 ## Testing
 
-You can test sequeval by running `pytest tests`. You can also compute the coverage of the tests with `pytest --cov tests`. These commands require, respectively, [pytest](https://pytest.org/) and [pytest-cov](https://github.com/pytest-dev/pytest-cov).
+You can test sequeval by running `pytest tests`. You can also compute the coverage of the tests with `pytest --cov sequeval`. These commands require, respectively, [pytest](https://pytest.org/) and [pytest-cov](https://github.com/pytest-dev/pytest-cov).
