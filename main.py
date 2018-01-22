@@ -2,7 +2,6 @@ import argparse
 import random
 
 import numpy as np
-import pytimeparse
 
 import sequeval
 import sequeval.baseline as baseline
@@ -51,7 +50,7 @@ if __name__ == '__main__':
     loader = sequeval.MovieLensLoader(user_ratings=args.user_ratings, item_ratings=args.item_ratings)
     ratings = loader.load(args.file)
 
-    builder = sequeval.Builder(pytimeparse.parse(args.delta))
+    builder = sequeval.Builder(args.delta)
     sequences, items = builder.build(ratings)
 
     print("\n# Profiler")

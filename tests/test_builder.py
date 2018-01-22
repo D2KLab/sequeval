@@ -18,6 +18,12 @@ class BuilderTestSuite(unittest.TestCase):
         self.assertEqual(sequences, actual_sequences)
         self.assertEqual(items, actual_items._list)
 
+    def test_builder_parse(self):
+        builder = sequeval.Builder('10 seconds')
+        actual_sequences, actual_items = builder.build(ratings)
+        self.assertEqual(sequences, actual_sequences)
+        self.assertEqual(items, actual_items._list)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,4 @@
 numpy
 pandas
-pytest
 pytimeparse
 scipy

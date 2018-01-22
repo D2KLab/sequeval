@@ -1,5 +1,7 @@
 import collections
 
+import pytimeparse
+
 
 class IndexList(collections.MutableSequence):
 
@@ -44,9 +46,12 @@ class Builder:
 
     def __init__(self, interval):
         """
-        :param interval: The interval for creating the sequences, in seconds.
+        :param interval: The time interval for creating the sequences.
         """
-        self.interval = interval
+        if type(interval) is str:
+            self.interval = pytimeparse.parse(interval)
+        else:
+            self.interval = interval
 
     def build(self, ratings):
         """
