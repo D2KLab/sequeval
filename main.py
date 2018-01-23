@@ -20,7 +20,8 @@ def evaluation(compute, recommender, similarity):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='An evaluation framework for sequence-based recommender systems.')
+    parser = argparse.ArgumentParser(description='An offline evaluation framework '
+                                                 'for sequence-based recommender systems')
 
     parser.add_argument('file', type=str, help='file containing the ratings')
     parser.add_argument('--seed', type=int, default=None, help='seed for generating pseudo-random numbers')
