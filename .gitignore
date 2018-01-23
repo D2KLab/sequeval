@@ -1,7 +1,10 @@
+__pycache__
 .cache
+.coverage
 .idea
-build
-datasets
-dist
-venv
-*.egg-info
+build/*
+datasets/*
+!datasets/yes_reduced.csv
+dist/*
+venv/*
+*.egg-info/*
