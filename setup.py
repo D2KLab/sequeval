@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='sequeval',
-    version='0.1.1',
+    version='1.0.0',
     packages=['sequeval',
               'sequeval.baseline'],
     url='https://github.com/D2KLab/sequeval',

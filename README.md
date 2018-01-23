@@ -1,9 +1,29 @@
 # Sequeval
 Sequeval is an offline evaluation framework for sequence-based recommender systems developed in Python.
 
+## Architecture
+
+The package `sequeval` is composed of the following modules:
+
+- `loader.py`, which contains the code for reading the ratings from a file. The class *MovieLensLoader* extends the abstract class *Loader* and it deals with CSV files compliant with the [MovieLens](https://grouplens.org/datasets/movielens/) format;
+- `builder.py`, which contains the class *Builder* that creates a list of sequences from the ratings;
+- `profiler.py`, which contains the class *Profiler* that computes some statistics about the sequences;
+- `splitter.py`, which contains the abstract class *Splitter* and the concrete classes *RandomSplitter* and *TimestampSplitter*;
+- `recommender.py`, which contains the abstract class *Recommender* that needs to be implemented by any recommender relying on this framework;
+- `evaluator.py`, which contains the class *Evaluator* that includes the methods for computing the metrics during the evaluation phase;
+- `similarity.py`, which contains the abstract class *Similarity* and the concrete class *CosineSimilarity*;
+- `indexlist.py`, which contains the class *IndexList* that extends *MutableSequence*.
+
+The package `sequeval.baseline` includes the following baseline recommenders:
+
+- `mostpopular.py`, which contains the class *MostPopularRecommender*;
+- `random.py`, which contains the class *RandomRecommender*;
+- `unigram.py`, which contains the class *UnigramRecommender*;
+- `bigram.py`, which contains the class *BigramRecommender*.
+
 ## Dependencies
 
-Sequeval requires [numpy](http://www.numpy.org/), [scipy](http://www.scipy.org/), [pandas](http://pandas.pydata.org/), and [matplotlib](http://matplotlib.org/).
+Sequeval requires [numpy](http://www.numpy.org/), [pandas](http://pandas.pydata.org/), [pytimeparse](https://github.com/wroberts/pytimeparse), and [scipy](http://www.scipy.org/).
 
 ## Installation
 
