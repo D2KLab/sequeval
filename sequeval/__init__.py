@@ -1,4 +1,5 @@
 from .builder import Builder
+from .builder import IndexList
 from .evaluator import Evaluator
 from .loader import MovieLensLoader
 from .profiler import Profiler
