@@ -10,6 +10,7 @@ class MostPopularTestSuite(unittest.TestCase):
         unigram = baseline.UnigramRecommender(sequences, items)
         expected = [4 / 11, 5 / 11, 2 / 11]
         self.assertEqual(expected, unigram.predict(None).tolist())
+        unigram.reset()
         self.assertEqual(expected, unigram.predict(None).tolist())
 
 

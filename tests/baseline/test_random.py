@@ -12,6 +12,7 @@ class MostPopularTestSuite(unittest.TestCase):
         random = baseline.RandomRecommender(sequences, items)
         expected = np.full(len(items), 1 / 3, dtype=float)
         self.assertEqual(expected.tolist(), random.predict(None).tolist())
+        random.reset()
         self.assertEqual(expected.tolist(), random.predict(None).tolist())
 
 
