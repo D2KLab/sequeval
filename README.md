@@ -54,3 +54,10 @@ python main.py --seed 1 --item_ratings 50 --random --delta "1000 s" datasets/yes
 ```
 
 The file `yes_reduced.csv` contains a random sample of the [Yes.com](http://web.archive.org/web/20170629232107/https://www.cs.cornell.edu/~shuochen/lme/data_page.html) dataset, reduced 10 times its original size. Please note that the Yes.com dataset was originally released under the terms of the [Creative Commons BY-NC-ND 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/) license.
+
+## Team
+
+- Diego Monti <diego.monti@polito.it>
+- Enrico Palumbo <palumbo@ismb.it>
+- Giuseppe Rizzo <giuseppe.rizzo@ismb.it>
+- Maurizio Morisio <maurizio.morisio@polito.it>
