@@ -1,4 +1,8 @@
 # Sequeval
+
+[![Build Status](https://travis-ci.org/D2KLab/sequeval.svg?branch=master)](https://travis-ci.org/D2KLab/sequeval)
+[![codecov](https://codecov.io/gh/D2KLab/sequeval/branch/master/graph/badge.svg)](https://codecov.io/gh/D2KLab/sequeval)
+
 Sequeval is an offline evaluation framework for sequence-based recommender systems developed in Python.
 
 ## Architecture
