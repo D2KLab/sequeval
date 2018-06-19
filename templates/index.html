@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Sequeval Demo</title>
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Sequeval Demo</h2>
+        <p class="lead">Demo prototype</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form id="run-evaluator">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="user-ratings">User ratings</label>
+                        <input type="number" class="form-control" id="user-ratings" name="user-ratings" min="0" value="0" required>
+                        <small id="user-ratings-help" class="form-text text-muted">
+                            The minimum number of ratings for each user.
+                        </small>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="item-ratings">Item ratings</label>
+                        <input type="number" class="form-control" id="item-ratings" name="item-ratings" min="0" value="50" required>
+                        <small id="item-ratings-help" class="form-text text-muted">
+                            The minimum number of ratings for each item.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="splitter">Splitter</label>
+                        <select class="custom-select d-block w-100" id="splitter" name="splitter" required>
+                            <option value="timestamp">Timestamp splitter</option>
+                            <option value="random">Random splitter</option>
+                        </select>
+                        <small id="splitter-help" class="form-text text-muted">
+                            The splitting strategy.
+                        </small>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="ratio">Test set size</label>
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" id="ratio" name="ratio" min="1" max="100" value="20" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="ratio-percentage">%</span>
+                            </div>
+                        </div>
+                        <small id="ratio-help" class="form-text text-muted">
+                            The percentage of sequences included in the test set.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="length">Sequence length</label>
+                        <input type="number" class="form-control" id="length" name="length" min="1" value="5" required>
+                        <small id="length-help" class="form-text text-muted">
+                            The length of the recommended sequences.
+                        </small>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Run the evaluator</button>
+            </form>
+
+            <div id="result" class="py-5"></div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="static/sequeval.js"></script>
+</body>
+</html>
