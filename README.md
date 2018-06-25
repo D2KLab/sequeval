@@ -9,7 +9,7 @@ Sequeval is an offline evaluation framework for sequence-based recommender syste
 
 The package `sequeval` is composed of the following modules:
 
-- `loader.py`, which contains the code for reading the ratings from a file. The class *MovieLensLoader* extends the abstract class *Loader* and it deals with CSV files compliant with the [MovieLens](https://grouplens.org/datasets/movielens/) format;
+- `loader.py`, which contains the code for reading the ratings from a file. The class *UIRTLoader* extends the abstract class *Loader* and it deals with a CSV file saved in a format similar to the one of [MovieLens](https://grouplens.org/datasets/movielens/);
 - `builder.py`, which contains the class *Builder* that creates a list of sequences from the ratings;
 - `profiler.py`, which contains the class *Profiler* that computes some statistics about the sequences;
 - `splitter.py`, which contains the abstract class *Splitter* and the concrete classes *RandomSplitter* and *TimestampSplitter*;

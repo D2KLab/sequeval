@@ -48,7 +48,7 @@ if __name__ == '__main__':
         random.seed(args.seed)
         np.random.seed(args.seed)
 
-    loader = sequeval.MovieLensLoader(user_ratings=args.user_ratings, item_ratings=args.item_ratings)
+    loader = sequeval.UIRTLoader(user_ratings=args.user_ratings, item_ratings=args.item_ratings)
     ratings = loader.load(args.file)
 
     builder = sequeval.Builder(args.delta)

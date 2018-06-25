@@ -19,7 +19,7 @@ class Loader(ABC):
         pass
 
 
-class MovieLensLoader(Loader):
+class UIRTLoader(Loader):
 
     def __init__(self, user_ratings=0, item_ratings=0, threshold=None, skip=0):
         """

@@ -39,7 +39,7 @@ def run():
     _ratio = float(request.args.get('ratio')) / 100
     _k = int(request.args.get('length'))
 
-    loader = sequeval.MovieLensLoader(user_ratings=_user_ratings, item_ratings=_item_ratings)
+    loader = sequeval.UIRTLoader(user_ratings=_user_ratings, item_ratings=_item_ratings)
     ratings = loader.load('datasets/yes_reduced.csv')
 
     builder = sequeval.Builder('1000 s')
