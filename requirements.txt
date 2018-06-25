@@ -2,4 +2,7 @@ numpy
 pandas
 pytimeparse
 scipy
+
 flask
+pytest
+pytest-cov
