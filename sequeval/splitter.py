@@ -57,8 +57,7 @@ class TimestampSplitter(Splitter):
         test_set = []
 
         # The sequences must be ordered by timestamp
-        ordered_sequences = list(sequences)
-        sorted(ordered_sequences, key=lambda item: item[0][2])
+        ordered_sequences = sorted(sequences, key=lambda item: item[0][2])
 
         # Target number of sequences in the training set
         target_training = len(ordered_sequences) * (1 - self.test_ratio)
