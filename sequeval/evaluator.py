@@ -70,16 +70,16 @@ class Evaluator:
         return distribution
 
     def coverage(self, recommender):
-        recommended_items = []
+        recommended_items = set()
 
         # For each sequence in the test set
         for sequence in self.test_set:
             recommended_sequence = recommender.recommend(sequence[0], self.k)
 
             for rating in recommended_sequence:
-                recommended_items.append(rating[0])
+                recommended_items.add(rating[0])
 
-        coverage = len(set(recommended_items)) / len(self.items)
+        coverage = len(recommended_items) / len(self.items)
 
         return coverage
 
