@@ -31,7 +31,7 @@ Sequeval requires [numpy](http://www.numpy.org/), [pandas](http://pandas.pydata.
 
 ## Installation
 
-If you interesting in using sequeval in your own project, you can install it with `pip`:
+If you are interested in using sequeval in your own project, you can install it with `pip`:
 
 ```bash
 $ pip install git+https://github.com/D2KLab/sequeval.git
