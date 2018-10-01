@@ -63,14 +63,14 @@ if __name__ == '__main__':
     print("Sparsity:", profiler.sparsity())
     print("Length:", profiler.sequence_length())
 
-    if args.splitter is 'random':
+    if args.splitter == 'random':
         print("\n# Random splitter")
         splitter = sequeval.RandomSplitter(args.ratio)
-    elif args.splitter is 'timestamp':
+    elif args.splitter == 'timestamp':
         print("\n# Timestamp splitter")
         splitter = sequeval.TimestampSplitter(args.ratio)
     else:
-        raise RuntimeError('Unknown splitter')
+        raise RuntimeError('Unknown splitter ' + args.splitter)
     training_set, test_set = splitter.split(sequences)
     print("Training set:", len(training_set))
     print("Test set:", len(test_set))
