@@ -13,7 +13,7 @@ def main():
 
 def parse(value):
     if value == float('inf'):
-        return 'Infinite'
+        return 'Infinity'
     if isinstance(value, float):
         return str("%.4f" % round(value, 4))
     return str(value)

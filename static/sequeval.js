@@ -44,7 +44,7 @@ $(function () {
             for (let i = 0; i < evaluator.length; i++) {
                 let tr = $('<tr>');
                 table.append(tr);
-                tr.append($('<th>').text(evaluator[i][0]));
+                tr.append($('<td>').text(evaluator[i][0]));
                 for (let j = 1; j < evaluator[i].length; j++) {
                     tr.append($('<td>').text(evaluator[i][j]));
                 }
