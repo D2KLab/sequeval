@@ -35,6 +35,8 @@ class CosineSimilarity(Similarity):
                 item_index = self.items.index(rating[0])
                 self.matrix[item_index, sequence_index] += 1
 
+        self.cache = {}
+
     def similarity(self, item_i, item_j):
         """
         Compute the cosine similarity between two items.
@@ -46,9 +48,16 @@ class CosineSimilarity(Similarity):
         """
         index_i = self.items.index(item_i)
         index_j = self.items.index(item_j)
+
+        if (index_i, index_j) in self.cache:
+            return self.cache[(index_i, index_j)]
+
         array_i = self.matrix[index_i]
         array_j = self.matrix[index_j]
+
         if array_i.sum() == 0 or array_j.sum() == 0:
-            return 0
+            self.cache[(index_i, index_j)] = 0
         else:
-            return 1 - distance.cosine(array_i, array_j)
+            self.cache[(index_i, index_j)] = 1 - distance.cosine(array_i, array_j)
+
+        return self.cache[(index_i, index_j)]
