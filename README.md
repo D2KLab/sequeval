@@ -64,6 +64,7 @@ The file `yes_reduced.csv` contains a random sample of the [Yes.com](http://web.
 ## Publications
 
 - Monti D., Palumbo E., Rizzo G., Morisio M. (2018). Sequeval: A Framework to Assess and Benchmark Sequence-based Recommender Systems. In REVEAL 2018 Workshop on Offline Evaluation for Recommender Systems. https://arxiv.org/abs/1810.04956
+- Monti, D., Palumbo, E., Rizzo, G., Morisio, M. Sequeval: An Offline Evaluation Framework for Sequence-Based Recommender Systems. *Information*. 2019; 10(5):174. https://www.mdpi.com/2078-2489/10/5/174
 
 ## Team
 
